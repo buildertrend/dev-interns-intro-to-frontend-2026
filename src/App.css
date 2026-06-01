@@ -9,6 +9,7 @@
   margin-top: 0;
   font-size: 28px;
   text-align: center;
+  color: #f349dc;
 }
 
 .progress {
@@ -34,16 +35,16 @@
   font: inherit;
   text-align: left;
   padding: 14px 16px;
-  border: 1px solid #cbd2d9;
+  border: 1px solid #f30ee3;
   border-radius: 8px;
-  background: #f5f7fa;
+  background: #f5c2ee;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s;
 }
 
 .option-button:hover {
-  background: #e4e7eb;
-  border-color: #9aa5b1;
+  background: #f38bec;
+  border-color: #f30ee3;
 }
 
 /* Results screen */
