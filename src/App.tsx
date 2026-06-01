@@ -1,4 +1,6 @@
 import './App.css';
+import QuestionCard from './QuestionCard';
+
 
 // 👋 Welcome to the Quiz App lab!
 //
@@ -11,10 +13,14 @@ import './App.css';
 
 function App() {
   return (
+    
     <main className="quiz">
-      <h1>Quiz App</h1>
-      <p className="progress">Open HANDOUT.md and start with Part 1. 🚀</p>
+      <h1>Buildertrend Quiz App</h1>
+      {/* <p className="progress">Open HANDOUT.md and start with Part 1. 🚀</p> */}
+      <QuestionCard/>
     </main>
+    
+    
   );
 }
 
