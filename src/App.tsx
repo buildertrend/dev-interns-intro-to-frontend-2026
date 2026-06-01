@@ -31,6 +31,7 @@ function App() {
   return (
     <main className="quiz">
       <h1>Quiz App</h1>
+      <p className='score'>{id - wrong}/{id}</p>
       {questions[id] && <QuestionCard prompt={questions[id].prompt} options={questions[id].options} onAnswer={handleQuestionAnswer} />}
       {questions[id] == null && <Results wrong={wrong} total={id} onRestart={handleRestart} />}
     </main>
