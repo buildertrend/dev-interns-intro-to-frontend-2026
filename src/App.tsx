@@ -1,18 +1,30 @@
 import './App.css';
 import QuestionCard from './QuestionCard';
 import { questions } from "./data/questions";
-import { useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import Results from './Results';
-
-
 
   
   
 
 function App() {
+
+  useEffect(() => {
+    alert("Game Started!");
+  }, []);
+
+  
+
   const [counter, setCounter] = useState(0);
   const [score, setScore] = useState(0);
   
+  useEffect(() => {
+    console.log("Game started!");
+  },[]);
+
+  useEffect(() => {
+  console.log(`Now showing question #${counter + 1}`);
+}, [counter]);
 
   const handleAnswer = (selectedOption: string) => {
     const currentQuestion = questions[counter];
@@ -23,6 +35,16 @@ function App() {
 
     setCounter((prev) => prev + 1);
   };
+  const highScore = localStorage.getItem("highScore");
+
+  useEffect(() => {
+    if (score > Number(highScore)) {
+      localStorage.setItem("highScore", String(score));
+    }
+    console.log(`Current score: ${score}`);
+  },[counter,score,highScore]);
+ 
+
   
   
 
@@ -46,3 +68,7 @@ function App() {
 }}
     
 export default App;
+function toast(arg0: string) {
+  throw new Error('Function not implemented.');
+}
+
