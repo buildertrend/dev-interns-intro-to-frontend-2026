@@ -11,12 +11,12 @@ interface ResultsProps {
 
 function Results({ score, total, onRestart }: ResultsProps) {
   return (
-    <section className="results-card">
+    <section className="results">
       <h2>Quiz Complete!</h2>
-      <p>
+      <p className="score">
         You scored {score} out of {total}.
       </p>
-      <button onClick={onRestart}>Play again</button>
+      <button className="restart-button" onClick={onRestart}>Play again</button>
     </section>
   );
 }
@@ -29,7 +29,7 @@ function App() {
     window.alert('Welcome to the Quiz App!');
   }, []);
 
-  useEffect(() => {
+   useEffect(() => {
     if (currentQuestionIndex < questions.length) {
       alert(`Question ${currentQuestionIndex + 1} of ${questions.length}`);
     }
@@ -42,6 +42,7 @@ function App() {
       alert('Wrong answer! Try again.');
     }
 
+    // Advance to the next question on every answer (matches lab Part 4)
     setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
   };
 
@@ -59,6 +60,9 @@ function App() {
         <Results score={score} total={questions.length} onRestart={restartQuiz} />
       ) : (
         <>
+          <p className="progress">
+            Question {currentQuestionIndex + 1} of {questions.length}
+          </p>
           <p>Score: {score}</p>
           <QuestionCard question={questions[currentQuestionIndex]} onAnswerClick={incrementQuestion} />
         </>
