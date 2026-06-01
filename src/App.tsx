@@ -37,7 +37,8 @@ const QuestionCardProp : QuestionCardProps = {
     <main className="quiz">
       {index == 5 ? (<EndQuiz {...QuestionCardProp}/>):(<>
       <h1>Quiz App</h1>
-      {index == 0 ? (<h2 className='progress'>Score:</h2>):(<h2 className='progress'>Score: {score} / {index}</h2>)}
+      {index == 0 ? (<h2 >Score:</h2>):(<h2>Score: {score} / {index}</h2>)}
+      <h2 className='progress'>Question: {index+1}</h2>
       <QuestionCard {...QuestionCardProp}/>
       </>)}
     </main>
