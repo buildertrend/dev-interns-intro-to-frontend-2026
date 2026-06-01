@@ -13,6 +13,28 @@ A golden rule you'll see throughout:
 
 > **Data flows _down_ through props. Events flow _up_ through callbacks.**
 
+## 🎨 Styling: which `className`s to use
+
+The styling is already written for you in `src/App.css` — **you don't need to write
+any CSS.** But the styles only work if you put the right `className` on the right
+element. Use this table as you build each component. If something looks unstyled,
+the most likely cause is a missing or misspelled `className`.
+
+| Component | Element | `className` |
+|-----------|---------|-------------|
+| **App** | the outer `<main>` wrapper | `quiz` |
+| **App** | the "Question X of N" line `<p>` | `progress` |
+| **QuestionCard** | the outer `<div>` wrapper | `question-card` |
+| **QuestionCard** | the question prompt `<h2>` | `prompt` |
+| **QuestionCard** | the `<div>` wrapping the answer buttons | `options` |
+| **QuestionCard** | each answer `<button>` | `option-button` |
+| **Results** | the outer `<div>` wrapper | `results` |
+| **Results** | the "You scored…" `<p>` | `score` |
+| **Results** | the "Play again" `<button>` | `restart-button` |
+
+> Reminder: in TSX you write `className=`, **not** `class=`. (`class` is a reserved
+> word in JavaScript, so React uses `className`.)
+
 ---
 
 ## Part 1 — A static question card
