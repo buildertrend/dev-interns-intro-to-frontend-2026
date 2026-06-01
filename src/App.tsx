@@ -35,6 +35,17 @@ function App() {
         setCorrectCount(0);
     } 
 
+    // Fisher-Yates shuffle algorithm to randomize the order of questions and options per google
+    function shuffleArray(array) {
+        const arr = [...array]; 
+        for (let i = arr.length - 1; i > 0; i--) {
+            // eslint-disable-next-line react-hooks/purity
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]]; 
+        }
+        return arr;
+    }
+    const randomQuestions = shuffleArray(questions);
 
     useEffect(() => {
         alert("Quiz Started");
@@ -47,6 +58,13 @@ function App() {
     }, [questionCount]);
 
 
+    useEffect(() => {
+        const highScoreString = localStorage.getItem("highScore");
+        const highScoreInt = highScoreString ? parseInt(highScoreString) : 0;
+        if (correctCount > highScoreInt) {
+            localStorage.setItem("highScore", correctCount.toString());
+        } 
+    }, [correctCount]);
 
     return (
     <main className="quiz">
@@ -54,11 +72,11 @@ function App() {
             <Scoreboard correctAnswers={correctCount} runningTotalQuestions={questionCount} />
             {questionCount < questions.length ? (
                 <>
-                    <p className="progress">Question {questionCount} of {questions.length}</p>
-                    <QuestionCard question={questions[questionCount]} handleNextQuestion={handleNextQuestion} />
+                    <p className="progress">Question {questionCount} of {randomQuestions.length}</p>
+                    <QuestionCard question={randomQuestions[questionCount]} handleNextQuestion={handleNextQuestion} />
               </>
           ) : (
-                <Results correctAnswers={correctCount} totalQuestions={questions.length} handleRestartQuiz={handleRestartQuiz} />
+                <Results correctAnswers={correctCount} totalQuestions={randomQuestions.length} handleRestartQuiz={handleRestartQuiz} />
           )
           }
     </main>
