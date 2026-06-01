@@ -1,4 +1,8 @@
 import './App.css';
+import QuestionCard from "./QuestionCard.tsx";
+import Results from "./Results.tsx";
+import { questions } from './data/questions.ts';
+import { useQuiz } from "./hooks/useQuiz.ts";
 
 // 👋 Welcome to the Quiz App lab!
 //
@@ -10,10 +14,13 @@ import './App.css';
 // You will build everything else. Replace the placeholder below as you go.
 
 function App() {
+  const { id, wrong, timeLeft, handleQuestionAnswer, handleRestart } = useQuiz(questions);
   return (
     <main className="quiz">
       <h1>Quiz App</h1>
-      <p className="progress">Open HANDOUT.md and start with Part 1. 🚀</p>
+      {questions[id] && <p className='score'>{id - wrong}/{id}</p>}
+      {questions[id] && <QuestionCard prompt={questions[id].prompt} options={questions[id].options} timeLeft={timeLeft} onAnswer={handleQuestionAnswer} />}
+      {questions[id] == null && <Results wrong={wrong} total={id} onRestart={handleRestart} />}
     </main>
   );
 }
