@@ -1,9 +1,10 @@
 import './App.css';
 import { questions } from './data/questions.ts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import QuestionCard from './QuestionCard.tsx';
 import Results from './Results.tsx';
 import Scoreboard from './Scoreboard.tsx';
+
 // 👋 Welcome to the Quiz App lab!
 //
 // This is your starting point. Open HANDOUT.md and work through Part 1 → Part 5.
@@ -16,28 +17,36 @@ import Scoreboard from './Scoreboard.tsx';
 function App() {
     const [questionCount, setQuestionCount] = useState(0);
     const [correctCount, setCorrectCount] = useState(0);
-    const [response, setResponse] = useState("Unanswered"); 
-
+    
     const checkAnswer = (selectedOption: string) => {
         if (selectedOption === questions[questionCount].correctAnswer) {
             setCorrectCount(correctCount + 1);
-            setResponse("Correct");
-        } else {
-            setResponse("Incorrect");
-        }
+        } 
     } 
 
     const handleNextQuestion = (selectedOption: string) => {
         checkAnswer(selectedOption);
-        // setQuestionCount(questionCount + 1);
+        setQuestionCount(questionCount + 1);
 
     }
 
     const handleRestartQuiz = () => {
         setQuestionCount(0);
         setCorrectCount(0);
-        setResponse("Unanswered");
     } 
+
+
+    useEffect(() => {
+        alert("Quiz Started");
+        console.log("Quiz Started!");
+    }, []); 
+
+    useEffect(() => {
+        console.log(`Question ${questionCount + 1}`);
+        document.title = `Question ${questionCount + 1}`;
+    }, [questionCount]);
+
+
 
     return (
     <main className="quiz">
@@ -46,7 +55,7 @@ function App() {
             {questionCount < questions.length ? (
                 <>
                     <p className="progress">Question {questionCount} of {questions.length}</p>
-                    <QuestionCard question={questions[questionCount]} handleNextQuestion={handleNextQuestion} response={response} />
+                    <QuestionCard question={questions[questionCount]} handleNextQuestion={handleNextQuestion} />
               </>
           ) : (
                 <Results correctAnswers={correctCount} totalQuestions={questions.length} handleRestartQuiz={handleRestartQuiz} />

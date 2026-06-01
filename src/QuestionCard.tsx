@@ -3,7 +3,6 @@ import type { Question } from "./types";
 interface QuestionCardProps {
     question: Question; 
     handleNextQuestion: (selectedOption: string) => void; 
-    response: string; 
 } 
 function QuestionCard(props: QuestionCardProps) { 
 
