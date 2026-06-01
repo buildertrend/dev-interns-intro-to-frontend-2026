@@ -41,6 +41,28 @@
   transition: background 0.15s, border-color 0.15s;
 }
 
+.correct-option-button {
+  font: inherit;
+  text-align: left;
+  padding: 14px 16px;
+  border: 1px solid #68c358;
+  border-radius: 8px;
+  background: #68c358;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.incorrect-option-button {
+  font: inherit;
+  text-align: left;
+  padding: 14px 16px;
+  border: 1px solid #ef4444;
+  border-radius: 8px;
+  background: #ef4444;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
 .option-button:hover {
   background: #e4e7eb;
   border-color: #9aa5b1;

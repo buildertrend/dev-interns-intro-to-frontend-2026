@@ -32,4 +32,10 @@ export const questions: Question[] = [
     options: ['id', 'index', 'key', 'name'],
     correctAnswer: 'key',
   },
+  {
+    id: 6,
+    prompt: 'What is my name?',
+    options: ['John', 'Uma', 'Gannett', 'Gannet'],
+    correctAnswer: 'Gannett',
+  }
 ];
