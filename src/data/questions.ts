@@ -32,4 +32,10 @@ export const questions: Question[] = [
     options: ['id', 'index', 'key', 'name'],
     correctAnswer: 'key',
   },
+  {
+    id: 6,
+    prompt: 'Why should you use the `key` prop when rendering lists in React?',
+    options: ['To improve performance', 'To uniquely identify each item', 'To add styling', 'To sort the list'],
+    correctAnswer: 'To uniquely identify each item',
+  },
 ];
