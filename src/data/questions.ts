@@ -31,5 +31,11 @@ export const questions: Question[] = [
     prompt: 'When you render a list with .map(), what special prop should each item have?',
     options: ['id', 'index', 'key', 'name'],
     correctAnswer: 'key',
-  },
+    },
+    {
+        id: 6,
+        prompt: 'What operator represents strict equality in React?',
+        options: ['=', '==', '===', '<>'],
+        correctAnswer: '===',
+    }
 ];
