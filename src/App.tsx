@@ -2,7 +2,7 @@ import './App.css';
 import QuestionCard from "./QuestionCard.tsx";
 import Results from "./Results.tsx";
 import { questions } from './data/questions.ts';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // 👋 Welcome to the Quiz App lab!
 //
@@ -18,7 +18,8 @@ function App() {
     if (answer != questions[id].correctAnswer) {
       setWrong(wrong + 1);
     }
-    setId(id + 1)
+    setId(id + 1);
+    setTimeLeft(10);
   }
 
   const handleRestart = () => {
@@ -26,13 +27,30 @@ function App() {
     setId(0)
   }
 
+
+  const [timeLeft, setTimeLeft] = useState(10);
+  useEffect(() => {
+    if (timeLeft <= 0 && questions[id] != null) {
+      setWrong(wrong + 1);
+      setId(id + 1);
+      setTimeLeft(10);
+      return
+    }
+
+    const timerId = setInterval(() => {
+      setTimeLeft((prevTime) => prevTime - 1);
+    }, 1000);
+
+    return () => clearInterval(timerId);
+  }, [timeLeft]);
+
   const [id, setId] = useState(0);
   const [wrong, setWrong] = useState(0);
   return (
     <main className="quiz">
       <h1>Quiz App</h1>
       {questions[id] && <p className='score'>{id - wrong}/{id}</p>}
-      {questions[id] && <QuestionCard prompt={questions[id].prompt} options={questions[id].options} onAnswer={handleQuestionAnswer} />}
+      {questions[id] && <QuestionCard prompt={questions[id].prompt} options={questions[id].options} timeLeft={timeLeft} onAnswer={handleQuestionAnswer} />}
       {questions[id] == null && <Results wrong={wrong} total={id} onRestart={handleRestart} />}
     </main>
   );
