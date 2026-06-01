@@ -1,19 +1,38 @@
 import './App.css';
+import { useState } from 'react';
+import QuestionCard from './QuestionCard';
+import { questions } from './data/questions';
+import type {QuestionCardProps} from './props'
 
-// 👋 Welcome to the Quiz App lab!
-//
-// This is your starting point. Open HANDOUT.md and work through Part 1 → Part 5.
-// Two things are already done for you:
-//   • src/types.ts          – the `Question` type
-//   • src/data/questions.ts – an array of `Question`s to power your quiz
-//
-// You will build everything else. Replace the placeholder below as you go.
+
+
 
 function App() {
+const [score, setScore] = useState(0);
+const[index, setIndex] = useState(0);
+
+const incrementCorrect = () => {
+  setScore((val)=> val+1);
+}
+
+const incrementIndex = () => {
+  setIndex((val)=> val+1);
+}
+
+const QuestionCardProp : QuestionCardProps = {
+  q: questions,
+  index: index,
+  handleCorrect: incrementCorrect,
+  handleNextQuestion: incrementIndex
+}
+
   return (
     <main className="quiz">
+      {index == 5 ? (<p>Quiz Done with {score} correct out of 4</p>):(<>
       <h1>Quiz App</h1>
-      <p className="progress">Open HANDOUT.md and start with Part 1. 🚀</p>
+      {index == 0 ? (<h2>Score:</h2>):(<h2>Score: {score} / {index}</h2>)}
+      <QuestionCard {...QuestionCardProp}/>
+      </>)}
     </main>
   );
 }
