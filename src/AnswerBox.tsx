@@ -13,6 +13,7 @@ function AnswerBox(props: QuestionCardProps){
     return(
     <div className='options'>
         {currentOptions.map(o =>(<button className='option-button'
+        key={o}
          onClick={()=>HandleAnswer(o)}>
             {o}
             </button>))}

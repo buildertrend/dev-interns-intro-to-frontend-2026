@@ -1,11 +1,9 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import QuestionCard from './QuestionCard';
 import { questions } from './data/questions';
 import type {QuestionCardProps} from './props'
 import EndQuiz from './EndQuiz';
-
-
 
 function App() {
 const [score, setScore] = useState(0);
@@ -24,6 +22,28 @@ const resetQuiz = ()=>{
         setIndex(0);
     }
 
+  //sends quiz start
+  useEffect(()=>{
+    alert("Quiz Started");
+  },[])
+
+  //sends question # alerts
+  useEffect(()=>{
+    if(index<5){
+    alert(`Question ${index+1}`);
+    }
+  },[index])
+
+  
+  //Sets new high score
+  useEffect(()=>{
+    const cur = parseInt(localStorage.getItem("high") ?? "0");
+    if(score > cur){
+      localStorage.setItem("high",`${score}`);
+      console.log(`New high score of ${score}`);
+    }
+  },[score])
+  
 const QuestionCardProp : QuestionCardProps = {
   q: questions,
   index: index,
