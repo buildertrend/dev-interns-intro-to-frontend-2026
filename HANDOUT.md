@@ -5,8 +5,8 @@ Build a multiple-choice quiz, one small step at a time. Each part ends at a
 working before moving on.
 
 **How to use this handout:**
-- Try each step yourself first using the **Instructions** and **Hints**.
-- Stuck? Expand the **Solution** to compare.
+- Work through each part using the **Instructions** and **Hints**.
+- Stuck? Re-read the hints, experiment, and ask an instructor if you're blocked.
 - After each part, check the box and run the app to hit the checkpoint.
 
 A golden rule you'll see throughout:
@@ -55,46 +55,6 @@ the most likely cause is a missing or misspelled `className`.
 - Give your answer buttons `type="button"` and `className="option-button"`, and
   wrap them in `<div className="options">` so the provided CSS styles them.
 
-<details>
-<summary>💡 Solution — Part 1</summary>
-
-`src/components/QuestionCard.tsx`
-```tsx
-function QuestionCard() {
-  return (
-    <div className="question-card">
-      <h2 className="prompt">What does JSX let you write inside your code?</h2>
-      <div className="options">
-        <button type="button" className="option-button">SQL queries</button>
-        <button type="button" className="option-button">HTML-like markup</button>
-        <button type="button" className="option-button">CSS rules</button>
-        <button type="button" className="option-button">Shell commands</button>
-      </div>
-    </div>
-  );
-}
-
-export default QuestionCard;
-```
-
-`src/App.tsx`
-```tsx
-import QuestionCard from './components/QuestionCard';
-import './App.css';
-
-function App() {
-  return (
-    <main className="quiz">
-      <h1>Quiz App</h1>
-      <QuestionCard />
-    </main>
-  );
-}
-
-export default App;
-```
-</details>
-
 ✅ **Checkpoint:** `[ ]` I can see a question and four answer buttons on screen.
 
 ---
@@ -125,54 +85,6 @@ you give it — nothing is hardcoded inside it anymore.
 - `key` should be something stable and unique per item — the option text works
   here since options are unique within a question.
 
-<details>
-<summary>💡 Solution — Part 2</summary>
-
-`src/components/QuestionCard.tsx`
-```tsx
-import type { Question } from '../types';
-
-type QuestionCardProps = {
-  question: Question;
-};
-
-function QuestionCard({ question }: QuestionCardProps) {
-  return (
-    <div className="question-card">
-      <h2 className="prompt">{question.prompt}</h2>
-      <div className="options">
-        {question.options.map((option) => (
-          <button key={option} type="button" className="option-button">
-            {option}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export default QuestionCard;
-```
-
-`src/App.tsx`
-```tsx
-import QuestionCard from './components/QuestionCard';
-import { questions } from './data/questions';
-import './App.css';
-
-function App() {
-  return (
-    <main className="quiz">
-      <h1>Quiz App</h1>
-      <QuestionCard question={questions[0]} />
-    </main>
-  );
-}
-
-export default App;
-```
-</details>
-
 ✅ **Checkpoint:** `[ ]` The card is driven entirely by props. Change
 `questions[0]` to `questions[1]` and a different question appears.
 
@@ -198,41 +110,6 @@ next question.
   to see your progress. Notice we **calculate** this from state — we don't store
   it separately.
 - Don't worry yet about running past the last question; we fix that in Part 5.
-
-<details>
-<summary>💡 Solution — Part 3</summary>
-
-`src/App.tsx`
-```tsx
-import { useState } from 'react';
-import QuestionCard from './components/QuestionCard';
-import { questions } from './data/questions';
-import './App.css';
-
-function App() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  return (
-    <main className="quiz">
-      <h1>Quiz App</h1>
-      <p className="progress">
-        Question {currentIndex + 1} of {questions.length}
-      </p>
-      <QuestionCard question={questions[currentIndex]} />
-      <button
-        type="button"
-        className="restart-button"
-        onClick={() => setCurrentIndex(currentIndex + 1)}
-      >
-        Next
-      </button>
-    </main>
-  );
-}
-
-export default App;
-```
-</details>
 
 ✅ **Checkpoint:** `[ ]` Clicking "Next" moves through the questions. (This is your
 first taste of **state → re-render**!)
@@ -264,76 +141,6 @@ records whether it was right and moves to the next question automatically.
   you always work from the latest value:
   `setScore((prev) => prev + 1)`.
 
-<details>
-<summary>💡 Solution — Part 4</summary>
-
-`src/components/QuestionCard.tsx`
-```tsx
-import type { Question } from '../types';
-
-type QuestionCardProps = {
-  question: Question;
-  onAnswer: (selectedOption: string) => void;
-};
-
-function QuestionCard({ question, onAnswer }: QuestionCardProps) {
-  return (
-    <div className="question-card">
-      <h2 className="prompt">{question.prompt}</h2>
-      <div className="options">
-        {question.options.map((option) => (
-          <button
-            key={option}
-            type="button"
-            className="option-button"
-            onClick={() => onAnswer(option)}
-          >
-            {option}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export default QuestionCard;
-```
-
-`src/App.tsx`
-```tsx
-import { useState } from 'react';
-import QuestionCard from './components/QuestionCard';
-import { questions } from './data/questions';
-import './App.css';
-
-function App() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [score, setScore] = useState(0);
-
-  const currentQuestion = questions[currentIndex];
-
-  function handleAnswer(selectedOption: string) {
-    if (selectedOption === currentQuestion.correctAnswer) {
-      setScore((prev) => prev + 1);
-    }
-    setCurrentIndex((prev) => prev + 1);
-  }
-
-  return (
-    <main className="quiz">
-      <h1>Quiz App</h1>
-      <p className="progress">
-        Question {currentIndex + 1} of {questions.length}
-      </p>
-      <QuestionCard question={currentQuestion} onAnswer={handleAnswer} />
-    </main>
-  );
-}
-
-export default App;
-```
-</details>
-
 ✅ **Checkpoint:** `[ ]` Clicking the correct answer increases your score (peek at
 it with React DevTools, or temporarily render `<p>Score: {score}</p>`). The quiz
 advances on every answer. (You'll hit an error after the last question — that's
@@ -363,86 +170,6 @@ question, show a results screen with the score and a "Play again" button.
 - A common pattern: `{isFinished ? <Results ... /> : <>...</>}`. The `<>...</>` is
   a **Fragment** — it lets you group elements without an extra wrapper `<div>`.
 - Resetting state is just calling the setters with their starting values.
-
-<details>
-<summary>💡 Solution — Part 5</summary>
-
-`src/components/Results.tsx`
-```tsx
-type ResultsProps = {
-  score: number;
-  total: number;
-  onRestart: () => void;
-};
-
-function Results({ score, total, onRestart }: ResultsProps) {
-  return (
-    <div className="results">
-      <h2>Quiz complete! 🎉</h2>
-      <p className="score">
-        You scored {score} out of {total}.
-      </p>
-      <button type="button" className="restart-button" onClick={onRestart}>
-        Play again
-      </button>
-    </div>
-  );
-}
-
-export default Results;
-```
-
-`src/App.tsx`
-```tsx
-import { useState } from 'react';
-import QuestionCard from './components/QuestionCard';
-import Results from './components/Results';
-import { questions } from './data/questions';
-import './App.css';
-
-function App() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [score, setScore] = useState(0);
-
-  const isFinished = currentIndex >= questions.length;
-  const currentQuestion = questions[currentIndex];
-
-  function handleAnswer(selectedOption: string) {
-    if (selectedOption === currentQuestion.correctAnswer) {
-      setScore((prev) => prev + 1);
-    }
-    setCurrentIndex((prev) => prev + 1);
-  }
-
-  function handleRestart() {
-    setCurrentIndex(0);
-    setScore(0);
-  }
-
-  return (
-    <main className="quiz">
-      <h1>Quiz App</h1>
-      {isFinished ? (
-        <Results
-          score={score}
-          total={questions.length}
-          onRestart={handleRestart}
-        />
-      ) : (
-        <>
-          <p className="progress">
-            Question {currentIndex + 1} of {questions.length}
-          </p>
-          <QuestionCard question={currentQuestion} onAnswer={handleAnswer} />
-        </>
-      )}
-    </main>
-  );
-}
-
-export default App;
-```
-</details>
 
 ✅ **Checkpoint:** `[ ]` You can play the whole quiz start to finish, see your
 score, and restart. 🎉 **You've built a complete React app using TSX, components,

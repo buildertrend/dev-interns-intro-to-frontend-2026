@@ -26,13 +26,6 @@ automatically as you save files.
 
 - **`main` branch** – your starting point. The pieces you need to build are
   described step-by-step in **[HANDOUT.md](./HANDOUT.md)**.
-- **`solution` branch** – a finished version of Parts 1–5. Peek here if you get
-  stuck, or compare after you finish:
-
-  ```bash
-  git switch solution   # see the finished code
-  git switch main       # back to your work
-  ```
 
 ## What's already done for you
 
