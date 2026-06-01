@@ -3,8 +3,10 @@ import type { Question } from "./types";
 interface QuestionCardProps {
     question: Question; 
     handleNextQuestion: (selectedOption: string) => void; 
+    response: string; 
 } 
 function QuestionCard(props: QuestionCardProps) { 
+
 
     return (
         <div className="question-card">
@@ -12,6 +14,7 @@ function QuestionCard(props: QuestionCardProps) {
 
             <div className="options">
                 {props.question.options.map(option => (
+
                     <button className="option-button" onClick={() => props.handleNextQuestion(option)}>{option}</button>
                 ))}
             </div>

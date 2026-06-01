@@ -3,6 +3,7 @@ import { questions } from './data/questions.ts';
 import { useState } from 'react';
 import QuestionCard from './QuestionCard.tsx';
 import Results from './Results.tsx';
+import Scoreboard from './Scoreboard.tsx';
 // 👋 Welcome to the Quiz App lab!
 //
 // This is your starting point. Open HANDOUT.md and work through Part 1 → Part 5.
@@ -15,31 +16,37 @@ import Results from './Results.tsx';
 function App() {
     const [questionCount, setQuestionCount] = useState(0);
     const [correctCount, setCorrectCount] = useState(0);
+    const [response, setResponse] = useState("Unanswered"); 
 
     const checkAnswer = (selectedOption: string) => {
         if (selectedOption === questions[questionCount].correctAnswer) {
             setCorrectCount(correctCount + 1);
-        } 
+            setResponse("Correct");
+        } else {
+            setResponse("Incorrect");
+        }
     } 
 
     const handleNextQuestion = (selectedOption: string) => {
         checkAnswer(selectedOption);
-        setQuestionCount(questionCount + 1);
+        // setQuestionCount(questionCount + 1);
 
     }
 
     const handleRestartQuiz = () => {
         setQuestionCount(0);
         setCorrectCount(0);
+        setResponse("Unanswered");
     } 
 
     return (
     <main className="quiz">
-          <h1>Quiz App</h1>
+            <h1>Quiz App</h1>
+            <Scoreboard correctAnswers={correctCount} runningTotalQuestions={questionCount} />
             {questionCount < questions.length ? (
-              <>
+                <>
                     <p className="progress">Question {questionCount} of {questions.length}</p>
-                    <QuestionCard question={questions[questionCount]} handleNextQuestion={handleNextQuestion} />
+                    <QuestionCard question={questions[questionCount]} handleNextQuestion={handleNextQuestion} response={response} />
               </>
           ) : (
                 <Results correctAnswers={correctCount} totalQuestions={questions.length} handleRestartQuiz={handleRestartQuiz} />
