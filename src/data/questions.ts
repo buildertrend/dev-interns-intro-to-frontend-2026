@@ -32,4 +32,11 @@ export const questions: Question[] = [
     options: ['id', 'index', 'key', 'name'],
     correctAnswer: 'key',
   },
+
+  {
+    id: 5,
+    prompt: 'Which key word allows you to reassign a variable in TypeScript?',
+    options: ['var', 'let', 'const', 'static'],
+    correctAnswer: 'let',
+  },
 ];
