@@ -5,7 +5,7 @@ function PromptBox(props: QuestionCardProps){
     const currentPrompt = currentQuestion.prompt;
     return(
     <>
-        <p>{currentPrompt}</p>
+        <h3 className='prompt'>{currentPrompt}</h3>
     </>
     );
 }

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import QuestionCard from './QuestionCard';
 import { questions } from './data/questions';
 import type {QuestionCardProps} from './props'
-
+import EndQuiz from './EndQuiz';
 
 
 
@@ -19,18 +19,25 @@ const incrementIndex = () => {
   setIndex((val)=> val+1);
 }
 
+const resetQuiz = ()=>{
+        setScore(0);
+        setIndex(0);
+    }
+
 const QuestionCardProp : QuestionCardProps = {
   q: questions,
   index: index,
+  score: score,
   handleCorrect: incrementCorrect,
-  handleNextQuestion: incrementIndex
+  handleNextQuestion: incrementIndex,
+  handleResetQuiz: resetQuiz
 }
 
   return (
     <main className="quiz">
-      {index == 5 ? (<p>Quiz Done with {score} correct out of 4</p>):(<>
+      {index == 5 ? (<EndQuiz {...QuestionCardProp}/>):(<>
       <h1>Quiz App</h1>
-      {index == 0 ? (<h2>Score:</h2>):(<h2>Score: {score} / {index}</h2>)}
+      {index == 0 ? (<h2 className='progress'>Score:</h2>):(<h2 className='progress'>Score: {score} / {index}</h2>)}
       <QuestionCard {...QuestionCardProp}/>
       </>)}
     </main>

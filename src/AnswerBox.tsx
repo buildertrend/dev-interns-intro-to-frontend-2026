@@ -11,12 +11,12 @@ function AnswerBox(props: QuestionCardProps){
     }
     const currentOptions = currentQuestion.options;
     return(
-    <>
-        {currentOptions.map(o =>(<button
+    <div className='options'>
+        {currentOptions.map(o =>(<button className='option-button'
          onClick={()=>HandleAnswer(o)}>
             {o}
             </button>))}
-        </>
+        </div>
     );
 }
 export default AnswerBox;
