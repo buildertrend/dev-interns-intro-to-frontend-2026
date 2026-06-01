@@ -46,6 +46,19 @@ function App() {
 
   const [id, setId] = useState(0);
   const [wrong, setWrong] = useState(0);
+
+  useEffect(() => {
+    document.title = questions[id]?.prompt ?? "Quiz";
+  }, [id])
+
+  useEffect(() => { alert("Quiz started!") }, [])
+
+  useEffect(() => {
+    if (questions[id] == null && (Number(localStorage.getItem("high") ?? "0") < ((id - wrong) / id))) {
+      localStorage.setItem("high", ((id - wrong) / id).toString())
+    }
+  }, [id])
+
   return (
     <main className="quiz">
       <h1>Quiz App</h1>
